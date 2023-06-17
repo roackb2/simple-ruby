@@ -54,6 +54,8 @@ puts "Is 1234 a Fixnum? #{1234.is_a?(Fixnum)}"
 
 puts "Is 1234567890 a Bignum? #{1234567890.is_a?(Bignum)}"
 
+puts "Is \"hello\" a String? #{"hello".is_a?(String)}"
+
 nums = [
   1234,
   1_234,
@@ -66,3 +68,20 @@ nums = [
 ]
 
 nums.each { |n| puts n }
+
+my_info = {
+  first_name: 'Jay',
+  last_name: 'Liang',
+  location: 'TW'
+}
+
+puts "My info: #{my_info}"
+my_info.each do |k, v|
+  puts "My #{k} is #{v}"
+end
+
+inclusive_range = (1..5)
+exclusive_range = (1...5)
+
+puts "An inclusive range for (1..5): #{inclusive_range.map { |v| v }}"
+puts "An exclusive range for (1...5): #{exclusive_range.map { |v| v }}"
