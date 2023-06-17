@@ -1,6 +1,6 @@
-# fronzen_string_literal: true
-
 #!/usr/bin/ruby -w
+
+# fronzen_string_literal: true
 
 require './customer'
 
@@ -52,9 +52,9 @@ puts "This is line #{__LINE__}"
 
 puts "Is 1234 a Fixnum? #{1234.is_a?(Fixnum)}"
 
-puts "Is 1234567890 a Bignum? #{1234567890.is_a?(Bignum)}"
+puts "Is 1234567890 a Bignum? #{1_234_567_890.is_a?(Bignum)}"
 
-puts "Is \"hello\" a String? #{"hello".is_a?(String)}"
+puts "Is \"hello\" a String? #{'hello'.is_a?(String)}"
 
 nums = [
   1234,
@@ -85,3 +85,56 @@ exclusive_range = (1...5)
 
 puts "An inclusive range for (1..5): #{inclusive_range.map { |v| v }}"
 puts "An exclusive range for (1...5): #{exclusive_range.map { |v| v }}"
+
+foo = 1
+
+puts "Is foo defined? #{defined? foo}"
+puts "Is puts defined? #{defined? puts}"
+puts "Is bar defined? #{defined? bar}"
+puts "Is yield defined? #{defined? yield}"
+
+def test_block(arg)
+  puts 'This is the test_block function'
+  return unless block_given?
+
+  puts "Is yield defined in a block? #{defined? yield}"
+  yield arg
+end
+
+test_block('hello') do |v|
+  puts "The passed in value is #{v}"
+end
+
+def echo_value(val)
+  puts "The passed in value is #{val}"
+end
+
+test_block('hello') { |v| echo_value v }
+
+echo_value_proc = proc { |v| puts "The value passed in the proc is #{v}" }
+
+test_block('hello', &echo_value_proc)
+
+echo_value_lambda = ->(v) { puts "The value passed in the lambda function is #{v}" }
+
+test_block('hello', &echo_value_lambda)
+
+def test_block_call(arg, block)
+  puts 'Using block.call'
+  block.call arg
+end
+
+test_block_call('hello', echo_value_proc)
+
+test_block_call('hello', echo_value_lambda)
+
+def test_multi_block_call(args, blocks)
+  raise 'Number of args and blocks not match' if args.size != blocks.size
+
+  puts 'Calling each block'
+  blocks.each_with_index do |block, i|
+    block.call args[i]
+  end
+end
+
+test_multi_block_call(%w[hello world], [echo_value_proc, echo_value_lambda])
