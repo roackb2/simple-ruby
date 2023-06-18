@@ -1,8 +1,11 @@
 #!/usr/bin/ruby -w
 
+$LOAD_PATH << '.'
+
 # fronzen_string_literal: true
 
-require './customer'
+require 'customer'
+require 'restaurant'
 
 puts 'hello world'
 
@@ -11,6 +14,8 @@ BEGIN {
 }
 
 END {
+  read_input
+
   puts 'This will be print right before program ends'
 }
 
@@ -138,3 +143,45 @@ def test_multi_block_call(args, blocks)
 end
 
 test_multi_block_call(%w[hello world], [echo_value_proc, echo_value_lambda])
+
+alice_age = 5
+
+def tell_age(age)
+  child_age = [0..2]
+  youth_age = [3..6]
+  teanage = [7..11]
+
+  case age
+  when *child_age
+    puts 'Alice is child'
+  when *youth_age
+    puts 'Alice is youth'
+  when *teanage
+    puts 'Alice is teanage'
+  else
+    puts 'Alice is grown up'
+  end
+end
+
+tell_age(alice_age)
+
+def read_input
+  puts 'Please type some characters. Type "end" to exit.'
+  input = ''
+  while input != 'end'
+    input = gets.chomp
+    puts "You just typed #{input}"
+  end
+end
+
+alias print_age tell_age
+
+def tell_age
+  puts 'Here we modified the method defonition of "tell_age"'
+end
+
+print_age(2)
+
+restaurant = Restaurant.new
+
+restaurant.greet('John Wick')
