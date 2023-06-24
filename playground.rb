@@ -20,9 +20,7 @@ BEGIN {
 }
 
 END {
-  restaurant = Restaurant.new
-
-  restaurant.greet('John Wick')
+  puts "End of program"
 }
 
 puts <<EOF
@@ -229,3 +227,19 @@ nums_added_three = nums.map(&curry_add.call(3)) # equivalent to nums.map(&curry_
 puts "Add all values of #{nums} with nums.map(&add2): #{nums_added_two}"
 
 puts "Add all values of #{nums} with nums.map(&curry_add.call(3)): #{nums_added_three}"
+
+add_and_multiply = ->(x, y, z) { (x + y) * z }
+multiply_and_pow = ->(x, y, z) { (x * y)**z }
+
+puts "Arity of add_and_multiply: #{add_and_multiply.arity}"
+puts "Arity of multiply_and_pow: #{multiply_and_pow.arity}"
+
+# A lambda function that takes a lambda function with arity of 3 and return a lambda function with arity of 2
+arity_three_called_with_last_as_two = ->(block) { ->(var1, var2) { block.call(var1, var2, 2) } }
+
+puts arity_three_called_with_last_as_two.call(add_and_multiply).call(3, 5)
+puts arity_three_called_with_last_as_two.call(multiply_and_pow).call(3, 5)
+
+restaurant = Restaurant.new
+
+restaurant.greet('John Wick')
