@@ -6,6 +6,12 @@ $LOAD_PATH << '.'
 
 require 'customer'
 require 'restaurant'
+require 'functional/utility'
+require 'functional/stateful_calculator'
+require 'functional/stateless_calculator'
+
+include Utility
+include StatelessCalculator
 
 puts 'hello world'
 
@@ -14,9 +20,9 @@ BEGIN {
 }
 
 END {
-  read_input
+  restaurant = Restaurant.new
 
-  puts 'This will be print right before program ends'
+  restaurant.greet('John Wick')
 }
 
 puts <<EOF
@@ -182,6 +188,16 @@ end
 
 print_age(2)
 
-restaurant = Restaurant.new
+calculator = StatefulCalulator.new
 
-restaurant.greet('John Wick')
+res = calculator.add(3).add(5).minus(2).mult(4).div(2).result
+
+puts "result for a stateful calculator is #{res}"
+
+curry_add = curry(:add)
+
+add2 = curry_add.call(2)
+
+puts "Adding 2 & 3 using curry: #{curry_add.call(2).call(3)}"
+
+puts "Adding 3 to the method 'add2': #{add2.call(3)}"
