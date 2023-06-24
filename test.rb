@@ -201,3 +201,9 @@ add2 = curry_add.call(2)
 puts "Adding 2 & 3 using curry: #{curry_add.call(2).call(3)}"
 
 puts "Adding 3 to the method 'add2': #{add2.call(3)}"
+
+def call_by_three(block)
+  block.call 3
+end
+
+puts "Composing block call with curry method call_by_three add2: #{call_by_three add2}"

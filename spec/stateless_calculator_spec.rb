@@ -18,5 +18,15 @@ describe 'StatelessCalculator' do
     it 'adds the number to 2' do
       expect(add2.call(3)).to eq(5)
     end
+
+    describe 'Using block call with curry method' do
+      def call_by_three(block)
+        block.call 3
+      end
+
+      it 'calculates correctly' do
+        expect(call_by_three(add2)).to eq(5)
+      end
+    end
   end
 end
