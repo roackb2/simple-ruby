@@ -194,16 +194,38 @@ res = calculator.add(3).add(5).minus(2).mult(4).div(2).result
 
 puts "result for a stateful calculator is #{res}"
 
+# Note that the curry method takes arity of the given function
 curry_add = curry(:add)
 
+puts "The curry_add function: #{curry_add}"
+
 add2 = curry_add.call(2)
+
+puts "The add2 function: #{add2}"
 
 puts "Adding 2 & 3 using curry: #{curry_add.call(2).call(3)}"
 
 puts "Adding 3 to the method 'add2': #{add2.call(3)}"
 
-def call_by_three(block)
+# The '&' in function parameter turns given block into a Proc
+def call_by_three(&block)
   block.call 3
 end
 
-puts "Composing block call with curry method call_by_three add2: #{call_by_three add2}"
+# The '&' before 'add2' converts a Proc into a block
+puts "Composing block call with curry method call_by_three add2: #{call_by_three(&add2)}"
+
+# Using brackets means that we take the original method and return a new method with first argument being 5
+add5_curry = method(:add).curry[5]
+
+puts "Calling a returned function with 3 by preloading :add method with first argument being 5: #{add5_curry.call(3)}"
+
+nums = [2, 3, 5, 8, 9]
+
+nums_added_two = nums.map(&add2)
+
+nums_added_three = nums.map(&curry_add.call(3)) # equivalent to nums.map(&curry_add.(3))
+
+puts "Add all values of #{nums} with nums.map(&add2): #{nums_added_two}"
+
+puts "Add all values of #{nums} with nums.map(&curry_add.call(3)): #{nums_added_three}"
