@@ -237,9 +237,22 @@ puts "Arity of multiply_and_pow: #{multiply_and_pow.arity}"
 # A lambda function that takes a lambda function with arity of 3 and return a lambda function with arity of 2
 arity_three_called_with_last_as_two = ->(block) { ->(var1, var2) { block.call(var1, var2, 2) } }
 
-puts arity_three_called_with_last_as_two.call(add_and_multiply).call(3, 5)
-puts arity_three_called_with_last_as_two.call(multiply_and_pow).call(3, 5)
+puts "Add 3 & 5, then multiply with 2: #{arity_three_called_with_last_as_two.call(add_and_multiply).call(3, 5)}"
+puts "Multiply 3 with 5, then power to 2: #{arity_three_called_with_last_as_two.call(multiply_and_pow).call(3, 5)}"
 
 restaurant = Restaurant.new
 
 restaurant.greet('John Wick')
+
+# Examples with arrays
+arr = Array.new(20)
+puts "An array at length of 20 #{arr}"
+
+names = Array.new(4, 'John')
+puts "An array of 4 Johns #{names}"
+
+pows = Array.new(10) { |i| i ** 2 }
+puts "An array created using block #{pows}"
+
+digits = Array(0..10)
+puts "An array created with range #{digits}"
