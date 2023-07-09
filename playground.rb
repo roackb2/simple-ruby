@@ -241,7 +241,6 @@ puts "Add 3 & 5, then multiply with 2: #{arity_three_called_with_last_as_two.cal
 puts "Multiply 3 with 5, then power to 2: #{arity_three_called_with_last_as_two.call(multiply_and_pow).call(3, 5)}"
 
 restaurant = Restaurant.new
-
 restaurant.greet('John Wick')
 
 # Examples with arrays
@@ -256,3 +255,20 @@ puts "An array created using block #{pows}"
 
 digits = Array(0..10)
 puts "An array created with range #{digits}"
+
+# Hash examples
+hs = Hash.new 'default'
+puts "An hash created with a default value 'default', accessing a random key: #{hs[123]}"
+
+# Time examples
+now = Time.new
+puts "Now is #{now}"
+
+july9local = Time.local(2023, 7, 9)
+puts "July 9 at local time: #{july9local}"
+
+july9utc = Time.utc(2023, 7, 9)
+puts "July 9 GTC: #{july9utc}"
+
+puts "My timezone is #{now.zone}"
+puts "My UTC offest in seconds: #{now.utc_offset}"
