@@ -272,3 +272,12 @@ puts "July 9 GTC: #{july9utc}"
 
 puts "My timezone is #{now.zone}"
 puts "My UTC offest in seconds: #{now.utc_offset}"
+
+# Ranges
+num_range = (1..10)
+puts "Numeric ranges: #{num_range.to_a}"
+char_range = ('a'..'z')
+puts "Alphabet range: #{char_range.to_a}"
+puts "is 6 included in num_range: #{num_range.include?(6)}"
+puts "min and max in num_range: #{num_range.min}, #{num_range.max}"
+puts "Is 6 in num_range using equality test: #{num_range === 6}"
