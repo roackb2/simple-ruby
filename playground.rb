@@ -281,3 +281,32 @@ puts "Alphabet range: #{char_range.to_a}"
 puts "is 6 included in num_range: #{num_range.include?(6)}"
 puts "min and max in num_range: #{num_range.min}, #{num_range.max}"
 puts "Is 6 in num_range using equality test: #{num_range === 6}"
+
+# Files
+file_path = 'output/test.txt'
+new_file_name = 'output/renamed.txt'
+
+File.open(file_path, 'w') do |file|
+  paragraph1 = 'This should be written to the file'
+  paragraph2 = 'This is the second line'
+  puts 'Writing content to the file'
+  file.puts(paragraph1)
+  file.puts(paragraph2)
+end
+
+File.open(file_path, 'r') do |file|
+  puts 'Is there any content in the file?'
+  content = file.sysread(100)
+  puts "Content in the file: #{content}"
+end
+
+puts 'Printing file content using IO.foreach'
+IO.foreach(file_path) { |line| puts line }
+
+puts "Renaming #{file_path} to #{new_file_name}"
+File.rename(file_path, new_file_name)
+
+puts "Deleting #{new_file_name}"
+File.delete(new_file_name)
+
+puts "Does the file still exists after removal? #{File.exist?(new_file_name)}"
